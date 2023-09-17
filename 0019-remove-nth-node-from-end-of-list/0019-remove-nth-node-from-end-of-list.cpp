@@ -22,8 +22,8 @@ public:
             fast = fast->next;
         }
         while(fast) {
-            slow = slow->next;
             fast = fast->next;
+            slow = slow->next;
         }
         ListNode* toRemove = slow->next;
         slow->next = toRemove->next;
