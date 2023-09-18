@@ -5,14 +5,15 @@ public:
         if(n==1) {
             return nums[0];
         }
-        vector<int>t(n+1,0);
-        t[0]=0;
-        t[1]=nums[0];
+        int prevprev=0;
+        int prev=nums[0];
         for(int i=2;i<=n;i++) {
-            int steal = nums[i-1]+t[i-2];
-            int skip = t[i-1];
-            t[i] = max(steal,skip);
+            int steal = nums[i-1]+prevprev;
+            int skip = prev;
+            int temp = max(steal,skip);
+            prevprev = prev;
+            prev = temp;
         }
-        return t[n];
+        return prev;
     }
 };
