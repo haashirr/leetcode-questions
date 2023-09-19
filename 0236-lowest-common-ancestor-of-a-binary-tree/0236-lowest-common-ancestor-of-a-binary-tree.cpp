@@ -9,38 +9,18 @@
  */
 class Solution {
 public:
-    unordered_map<TreeNode*,TreeNode*>parent;
-    void dfs(TreeNode* vertex, TreeNode* par) {
-        if(!vertex) {
-            return;
-        }
-        parent[vertex] = par;
-        dfs(vertex->left,vertex);
-        dfs(vertex->right,vertex);
-    }
-    vector<TreeNode*>path(TreeNode* vertex) {
-        vector<TreeNode*>ans;
-        while(vertex!=NULL) {
-            ans.push_back(vertex);
-            vertex = parent[vertex];
-        }
-        reverse(ans.begin(),ans.end());
-        return ans;
-    }
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        dfs(root,NULL);
-        vector<TreeNode*>path_x = path(p);
-        vector<TreeNode*>path_y = path(q);
-        int min_len = min(path_x.size(),path_y.size());
-        TreeNode* lca=NULL;
-        for(int i=0;i<min_len;i++) {
-            if(path_x[i]==path_y[i]) {
-                lca = path_x[i];
-            }
-            else {
-                break;
-            }
+        if(root==NULL || root==p || root==q) {
+            return root;
         }
-        return lca;
+        TreeNode* leftTree = lowestCommonAncestor(root->left,p,q);
+        TreeNode* rightTree = lowestCommonAncestor(root->right,p,q);
+        if(leftTree!=NULL && rightTree!=NULL) {
+            return root;
+        }
+        if(leftTree!=NULL) {
+            return leftTree;
+        }
+        return rightTree;
     }
 };
