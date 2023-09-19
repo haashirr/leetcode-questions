@@ -12,6 +12,7 @@
 class Solution {
 public:
     bool isValidBST(TreeNode* root) {
+        //function overloading
         return isValidBST(root,LONG_MIN,LONG_MAX);
     }
     bool isValidBST(TreeNode* root, long minVal, long maxVal) {
@@ -23,8 +24,7 @@ public:
         }
         bool isLeftBST = isValidBST(root->left,minVal,root->val);
         bool isRightBST = isValidBST(root->right,root->val,maxVal);
-        bool isDuplicate = (root->left!=nullptr && root->val == root->left->val) || (root->right!=nullptr && root->val == root->right->val);
-
+        bool isDuplicate = (root->left && root->val==root->left->val) || (root->right && root->val==root->right->val);
         return isLeftBST && isRightBST && !isDuplicate;
     }
 };
