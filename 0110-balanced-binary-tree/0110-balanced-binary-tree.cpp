@@ -12,24 +12,24 @@
 class Solution {
 public:
     bool isBalanced(TreeNode* root) {
-        if(!root) {
-            //empty binary tree is considered as balanced
-            return true;
-        }
-        int leftTree = getHeight(root->left);
-        int rightTree = getHeight(root->right);
-        if(abs(leftTree-rightTree)<=1 && isBalanced(root->left) && isBalanced(root->right)) {
-            return true;
-        }
-        return false;
+        int height=0;
+        return dfs(root,height);
     }
-    int getHeight(TreeNode* root) {
-        if(root==NULL) {
-            return 0;
+private:
+    bool dfs(TreeNode* root, int & height){
+        if(root==NULL){
+            height=-1;
+            return true;
         }
-        int leftHeight = getHeight(root->left);
-        int rightHeight = getHeight(root->right);
-
-        return max(leftHeight,rightHeight)+1;
+        int left=0;
+        int right=0;
+        if(!(dfs(root->left,left)) || !(dfs(root->right,right))){
+            return false;
+        }
+        if(abs(left-right)>1){
+            return false;
+        }
+        height= 1+ max(left,right);
+        return true;
     }
 };
