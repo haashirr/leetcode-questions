@@ -11,17 +11,17 @@
  */
 class Solution {
 public:
-    bool dfs(TreeNode* root, TreeNode* target) {
-        if(root==NULL && target==NULL) {
+    bool dfs(TreeNode* root, TreeNode* subRoot) {
+        if(!root && !subRoot) {
             return true;
         }
-        if(root==NULL || target==NULL) {
+        if(root==NULL || subRoot==NULL) {
             return false;
         }
-        if(root->val!=target->val) {
+        if(root->val!=subRoot->val) {
             return false;
         }
-        return dfs(root->left,target->left) && dfs(root->right,target->right);
+        return dfs(root->left,subRoot->left) && dfs(root->right,subRoot->right);
     }
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
         if(!root) {
