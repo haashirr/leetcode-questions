@@ -11,21 +11,23 @@
  */
 class Solution {
 public:
+        bool dfs(TreeNode*root,TreeNode*target)
+    {
+     if(root==NULL && target==NULL)
+     return true;
+    if(root==NULL|| target==NULL)
+     return false;
+     if(root->val!=target->val)
+     return false;
+    return dfs(root->left,target->left) && dfs(root->right,target->right);
+     
+    }
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
-        if (!root) {
-            return false; // If the root tree is null, subRoot cannot be a subtree.
-        }
-        return isSameTree(root, subRoot) || isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
+        if(!root)
+            return false;
+        if(dfs(root, subRoot))
+            return true;
+        return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
     }
-
-private:
-    bool isSameTree(TreeNode* a, TreeNode* b) {
-        if (!a && !b) {
-            return true; // Both trees are null, so they are the same.
-        }
-        if (!a || !b) {
-            return false; // One tree is null, but the other is not, so they are not the same.
-        }
-        return (a->val == b->val) && isSameTree(a->left, b->left) && isSameTree(a->right, b->right);
-    }
+    
 };
