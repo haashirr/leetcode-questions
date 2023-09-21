@@ -24,7 +24,8 @@ public:
         }
         bool isLeftBST = isValidBST(root->left,minVal,root->val);
         bool isRightBST = isValidBST(root->right,root->val,maxVal);
-        bool isDuplicate = (root->left && root->val==root->left->val) || (root->right && root->val==root->right->val);
+        bool isDuplicate = (root->left && root->left->val==root->val) || (root->right && root->right->val==root->val);
+
         return isLeftBST && isRightBST && !isDuplicate;
     }
 };
