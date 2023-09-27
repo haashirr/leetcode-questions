@@ -4,7 +4,7 @@ public:
         int ans;
         unordered_map<char,int>mp;
         int i=0,j=0,maxi=0;
-        int n = s.size();
+        int n = s.length();
         while(j<n) {
             mp[s[j]]++;
             maxi = max(maxi,mp[s[j]]);
