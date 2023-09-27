@@ -1,36 +1,45 @@
+
 class Solution {
 public:
     vector<int> findAnagrams(string s, string p) {
-        vector<int>ans;
-        int lens = s.length();
-        int lenp = p.length();
-        if(lenp>lens) {
-            return {};
+        map<char,int>freq,mp;
+        for(auto ele:p){
+            freq[ele]++;
         }
-        unordered_map<char,int>pattern_freq;
-        unordered_map<char,int>window;
-        for(auto c:p) {
-            pattern_freq[c]++;
+        int n=s.size(),m=p.size();
+        for(int i=0;i<m;i++){
+            mp[s[i]]++;
         }
-        for(int i=0;i<lenp;i++) {
-            window[s[i]]++;
+        int r=m-1;
+        bool ok=1;
+        for(char c='a';c<='z';c++){
+            if(mp[c]!=freq[c]){
+                ok=0;
+                break;
+            }
         }
-        if(pattern_freq==window) {
+        vector<int> ans;
+        if(ok){
             ans.push_back(0);
         }
-        for(int i=lenp;i<lens;i++) {
-            char left_char = s[i-lenp];
-            if(window[left_char]==1) {
-                window.erase(left_char);
+        int l=0;
+        l++;
+        r++;
+        while(r<n){
+            mp[s[l-1]]--;
+            mp[s[r]]++;
+            bool ok=1;
+            for(char c='a';c<='z';c++){
+                if(mp[c]!=freq[c]){
+                    ok=0;
+                    break;
+                }
             }
-            else {
-                window[left_char]--;
+            if(ok){
+                ans.push_back(l);
             }
-            int next_char = s[i];
-            window[next_char]++;
-            if(pattern_freq==window) {
-                ans.push_back(i-lenp+1);
-            }
+            l++;
+            r++;
         }
         return ans;
     }
