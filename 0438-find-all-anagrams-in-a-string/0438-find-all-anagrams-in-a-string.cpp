@@ -1,9 +1,9 @@
 class Solution {
 public:
     vector<int> findAnagrams(string s, string p) {
+        vector<int>ans;
         int lens = s.length();
         int lenp = p.length();
-        vector<int>ans;
         if(lenp>lens) {
             return {};
         }
@@ -23,7 +23,7 @@ public:
             if(window[left_char]==1) {
                 window.erase(left_char);
             }
-            else {
+            else if(window[left_char]>1) {
                 window[left_char]--;
             }
             char new_char = s[i];
