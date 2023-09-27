@@ -23,11 +23,11 @@ public:
             if(window[left_char]==1) {
                 window.erase(left_char);
             }
-            else if(window[left_char]>1) {
+            else {
                 window[left_char]--;
             }
-            char new_char = s[i];
-            window[new_char]++;
+            int next_char = s[i];
+            window[next_char]++;
             if(pattern_freq==window) {
                 ans.push_back(i-lenp+1);
             }
