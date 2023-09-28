@@ -3,22 +3,39 @@ public:
     void setZeroes(vector<vector<int>>& matrix) {
         int m = matrix.size();
         int n = matrix[0].size();
-        unordered_set<int>s1;
-        unordered_set<int>s2;
+        bool row = false;
+        bool col = false;
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
                 if(matrix[i][j]==0) {
-                    s1.insert(i);
-                    s2.insert(j);
+                    if(i==0) {
+                        row = true;
+                    }
+                    if(j==0) {
+                        col = true;
+                    }
+                    matrix[i][0]=0;
+                    matrix[0][j]=0;
                 }
             }
         }
-        for(int i=0;i<m;i++) {
-            for(int j=0;j<n;j++) {
-                if(s1.count(i)>0 || s2.count(j)>0) {
+        for(int i=1;i<m;i++) {
+            for(int j=1;j<n;j++) {
+                if(matrix[i][0]==0 || matrix[0][j]==0) {
                     matrix[i][j]=0;
                 }
             }
         }
+        if(row) {
+            for(int j=0;j<n;j++) {
+                matrix[0][j]=0;
+            }
+        }
+        if(col) {
+            for(int i=0;i<m;i++) {
+                matrix[i][0]=0;
+            }
+        }
+
     }
 };
