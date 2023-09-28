@@ -1,28 +1,23 @@
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
-        vector<vector<int>>visited = matrix;
         int m = matrix.size();
         int n = matrix[0].size();
+        unordered_set<int>s1;
+        unordered_set<int>s2;
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
                 if(matrix[i][j]==0) {
-                    for(int k=0;k<n;k++)
-                    visited[i][k]=0;
+                    s1.insert(i);
+                    s2.insert(j);
                 }
             }
         }
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
-                if(matrix[i][j]==0) {
-                    for(int k=0;k<m;k++)
-                    visited[k][j]=0;
+                if(s1.count(i)>0 || s2.count(j)>0) {
+                    matrix[i][j]=0;
                 }
-            }
-        }
-        for(int i=0;i<m;i++) {
-            for(int j=0;j<n;j++) {
-                matrix[i][j] = visited[i][j];
             }
         }
     }
