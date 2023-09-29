@@ -9,7 +9,7 @@ public:
                 nums.erase(nums.begin()+i);
             }
         }
-        for(int i=1;i<=count;i++) {
+        for(int i=0;i<count;i++) {
             nums.push_back(0);
         }
     }
